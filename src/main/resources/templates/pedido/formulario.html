@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+
+<body>
+
+	<div
+		class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark mb-3">
+		<div class="container-fluid d-flex align-items-center">
+			<h1 class="d-flex align-items-center fs-4 text-white mb-0">
+				BuyFast</h1>
+			<a href="#" class="btn btn-sm btn-outline-light ms-auto">Login</a>
+		</div>
+	</div>
+
+	<div class="container">
+
+		<div class="p-5 text-white bg-secondary rounded-3 mb-3">
+			<h1>Meus Pedidos</h1>
+		</div>
+
+		<div class="card">
+			<form class="card-body" method="POST" action="/pedido/novo" th:object="${produtoDto}">
+				<div class="mb-3">
+					<label for="nomeProduto" class="form-label">Produto</label> <input
+						type="text" class="form-control" id="nomeProduto"
+						placeholder="nome do Produto" th:field="*{nome}"> <small>Informe qual
+						o nome do produto.</small>
+				</div>
+				<div class="mb-3">
+					<label for="urlProduto" class="form-label">Url</label> <input
+						type="text" class="form-control" id="urlProduto"
+						placeholder="url do produto" th:field="*{urlProduto}"> <small>Procure em um
+						site o produto que você deseja e cole a url da página aqui.</small>
+				</div>
+
+				<div class="mb-3">
+					<label for="urlImagem" class="form-label">Imagem</label> <input
+						type="text" class="form-control" id="urlImagem"
+						placeholder="url da imagem" th:field="*{urlImagem}"> <small>Copie a url
+						de uma boa imagem do produto e cole aqui para ajudar a conseguir
+						compradores.</small>
+				</div>
+
+				<div class="mb-3">
+					<label for="descricaoProduto" class="form-label">Descrição</label>
+					<textarea class="form-control"
+						placeholder="Adicione detalhes importantes para ajudar o comprador"
+						id="descricaoProduto" th:field="*{descricao}"></textarea>
+				</div>
+
+				<div>
+					<button type="submit" class="btn btn-primary">Cadastrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>
