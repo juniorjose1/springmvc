@@ -30,23 +30,26 @@
 			<form class="card-body" method="POST" action="/pedido/novo" th:object="${produtoDto}">
 				<div class="mb-3">
 					<label for="nomeProduto" class="form-label">Produto</label> <input
-						type="text" class="form-control" id="nomeProduto"
+						type="text" class="form-control" id="nomeProduto" th:errorclass="is-invalid"
 						placeholder="nome do Produto" th:field="*{nome}"> <small>Informe qual
 						o nome do produto.</small>
+						<div th:errors="*{nome}" class="invalid-feedback">Erros de validação</div>
 				</div>
 				<div class="mb-3">
 					<label for="urlProduto" class="form-label">Url</label> <input
-						type="text" class="form-control" id="urlProduto"
+						type="text" class="form-control" id="urlProduto" th:errorclass="is-invalid"
 						placeholder="url do produto" th:field="*{urlProduto}"> <small>Procure em um
 						site o produto que você deseja e cole a url da página aqui.</small>
+						<div th:errors="*{urlProduto}" class="invalid-feedback">Erros de validação</div>
 				</div>
 
 				<div class="mb-3">
 					<label for="urlImagem" class="form-label">Imagem</label> <input
-						type="text" class="form-control" id="urlImagem"
+						type="text" class="form-control" th:errorclass="is-invalid" id="urlImagem"
 						placeholder="url da imagem" th:field="*{urlImagem}"> <small>Copie a url
 						de uma boa imagem do produto e cole aqui para ajudar a conseguir
 						compradores.</small>
+						<div th:errors="*{urlImagem}" class="invalid-feedback">Erros de validação</div>
 				</div>
 
 				<div class="mb-3">

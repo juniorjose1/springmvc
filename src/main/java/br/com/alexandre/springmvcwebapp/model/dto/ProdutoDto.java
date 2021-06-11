@@ -1,12 +1,20 @@
 package br.com.alexandre.springmvcwebapp.model.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import br.com.alexandre.springmvcwebapp.model.Produto;
 
 public class ProdutoDto {
 	
+	@NotBlank
 	private String nome;
+	
+	@NotBlank
 	private String urlProduto;
+	
+	@NotBlank
 	private String urlImagem;
+	
 	private String descricao;
 	
 	public ProdutoDto(String nome, String urlProduto, String urlImagem, String descricao) {
