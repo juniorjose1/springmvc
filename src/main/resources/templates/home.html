@@ -1,54 +1,46 @@
 <html>
-<head>
-<meta charset="UTF-8" />
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-	crossorigin="anonymous">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-</head>
+<head th:replace="~{base :: head}"></head>
 <body>
 
-	<div class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark mb-3">
-		<div class="container-fluid d-flex align-items-center">
-			<h1 class="d-flex align-items-center fs-4 text-white mb-0">
-				BuyFast
-			</h1>
-			<a href="#" class="btn btn-sm btn-outline-light ms-auto">Login</a>
-		</div>
+	<div th:replace="~{base :: topo}">
 	</div>
 
 	<div class="container">
 
-		<div class="p-5 text-white bg-secondary rounded-3">
-			<h1>Meus Pedidos</h1>
-		</div>
+		<div th:replace="base :: titulo(nomeTitulo='Meus Pedidos')"></div>
 
 		<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 container-fluid">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active"
-					aria-current="page" href="#">Todos</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Aguardando</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Aprovado</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Entregue</a></li>
+				<li class="nav-item"><a th:classappend="${status} == null ? active" class="nav-link"
+					aria-current="page" href="/home">Todos</a></li>
+				<li class="nav-item"><a th:classappend="${status} == 'aguardando' ? active" class="nav-link" href="/home/aguardando">Aguardando</a></li>
+				<li class="nav-item"><a th:classappend="${status} == 'aprovado' ? active" class="nav-link" href="/home/aprovado">Aprovado</a></li>
+				<li class="nav-item"><a th:classappend="${status} == 'entregue' ? active" class="nav-link" href="/home/entregue">Entregue</a></li>
 			</ul>
 			<a href="/pedido" class="btn btn-md btn-outline-secondary ms-auto">Novo</a>
 		</nav>
 
 		<div th:each="produto : ${listaProdutos}">
 			<div class="card mb-3">
-				<div class="card-header">
-					<label th:text="${produto.nome}"></label>
-				</div>
+				<th:block th:switch="${produto.status.name()}">
+					<div th:case="'AGUARDANDO'" class="card-header alert-warning">
+						<label th:text="${produto.nome}"></label>
+					</div>
+					<div th:case="'APROVADO'" class="card-header alert-success">
+						<label th:text="${produto.nome}"></label>
+					</div>
+					<div th:case="'ENTREGUE'" class="card-header alert-dark">
+						<label th:text="${produto.nome}"></label>
+					</div>
+				</th:block>
 				<div class="row card-body">
 					<div class="col-12 col-sm-7">
 						<div class="row">
 							<div class="card-text col-12 col-sm-5">
-								Valor: <label th:text="${produto.valor}"></label>
+								Valor: <label th:if="${produto.valor} != null" th:text="'R$ ' + ${#numbers.formatDecimal(produto.valor, 3, 'POINT', 2, 'COMMA')}"></label>
 							</div>
 							<div class="card-text col-sm-7">
-								Data: <label th:text="${produto.data}"></label>
+								Data: <label th:text="${#temporals.format(produto.data, 'dd/MM/yyyy')}"></label>
 							</div>
 						</div>
 						<div class="card-text mb-1">

@@ -3,6 +3,7 @@ package br.com.alexandre.springmvcwebapp.model.dto;
 import javax.validation.constraints.NotBlank;
 
 import br.com.alexandre.springmvcwebapp.model.Produto;
+import br.com.alexandre.springmvcwebapp.model.enums.StatusPedido;
 
 public class ProdutoDto {
 	
@@ -62,6 +63,7 @@ public class ProdutoDto {
 		produto.setDescricao(this.getDescricao());
 		produto.setLinkImagem(this.getUrlImagem());
 		produto.setLinkProduto(this.getUrlProduto());
+		produto.setStatus(StatusPedido.AGUARDANDO);
 		
 		return produto;
 	}

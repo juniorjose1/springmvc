@@ -4,10 +4,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import br.com.alexandre.springmvcwebapp.model.enums.StatusPedido;
 
 @Entity
 @Table(name = "produtos")
@@ -22,17 +26,21 @@ public class Produto {
 	private String linkProduto;
 	private String descricao;
 	private String linkImagem;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusPedido status;
 
 	public Produto() {
 	}
 
-	public Produto(String nome, BigDecimal valor, String linkProduto, String descricao, String linkImagem) {
+	public Produto(String nome, BigDecimal valor, String linkProduto, String descricao, String linkImagem, StatusPedido status) {
 		this.nome = nome;
 		this.valor = valor;
 		this.data = LocalDate.now();
 		this.linkProduto = linkProduto;
 		this.descricao = descricao;
 		this.linkImagem = linkImagem;
+		this.status = StatusPedido.AGUARDANDO;
 	}
 
 	public String getNome() {
@@ -77,6 +85,14 @@ public class Produto {
 
 	public void setLinkImagem(String linkImagem) {
 		this.linkImagem = linkImagem;
+	}
+
+	public StatusPedido getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPedido status) {
+		this.status = status;
 	}
 
 }
