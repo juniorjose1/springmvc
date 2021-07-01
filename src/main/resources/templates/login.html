@@ -1,0 +1,31 @@
+<html>
+<head th:replace="~{base :: head}"></head>
+<body>
+
+	<div th:replace="~{base :: topo}">
+	</div>
+
+	<div class="container">
+
+		<div th:replace="base :: titulo(nomeTitulo='Acesse sua conta !')"></div>
+
+		<div class="card">
+			<form class="card-body" method="POST" th:action="@{/login}">
+			
+				<div>
+					<label for="username" class="form-label">Login: <input type="text" class="form-control" name="username"/> </label>
+				</div>
+            	<div>
+            		<label for="password" class="form-label">Password: <input type="password" class="form-control" name="password"/> </label>
+            	</div>
+
+				<div>
+					<button type="submit" class="btn btn-primary">Entrar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>

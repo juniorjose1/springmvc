@@ -34,7 +34,7 @@
 					</div>
 				</th:block>
 				<div class="row card-body">
-					<div class="col-12 col-sm-7">
+					<div class="col-12 col-sm-8">
 						<div class="row">
 							<div class="card-text col-12 col-sm-5">
 								Valor: <label th:if="${produto.valor} != null" th:text="'R$ ' + ${#numbers.formatDecimal(produto.valor, 3, 'POINT', 2, 'COMMA')}"></label>
@@ -52,7 +52,7 @@
 							<textarea class="form-control" th:text="${produto.descricao}"></textarea>
 						</div>
 					</div>
-					<div class="col-sm-5">
+					<div class="col-sm-4">
 						<div>
 							<img class="img-thumbnail" th:src="${produto.linkImagem}" />
 						</div>
