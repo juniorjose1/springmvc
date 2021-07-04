@@ -23,22 +23,9 @@ public class HomeController {
 	
 	@GetMapping
 	public String home(Model model) {
-		List<Produto> produtos = produtoRepository.findAll();
+		List<Produto> produtos = produtoRepository.findByStatus(StatusPedido.ENTREGUE);
 		model.addAttribute("listaProdutos", produtos);
 		return "home";
-	}
-	
-	@GetMapping("/{status}")
-	public String findStatus(@PathVariable String status, Model model) {
-		List<Produto> produtos = produtoRepository.findByStatus(StatusPedido.valueOf(status.toUpperCase()));
-		model.addAttribute("listaProdutos", produtos);
-		model.addAttribute("status", status);
-		return "home";
-	}
-	
-	@ExceptionHandler(IllegalArgumentException.class)
-	public String notFound(Model model) {
-		return "redirect:/home";
 	}
 	
 

@@ -3,12 +3,15 @@ package br.com.alexandre.springmvcwebapp.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.alexandre.springmvcwebapp.model.enums.StatusPedido;
@@ -29,6 +32,9 @@ public class Produto {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
+	
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private User user;
 
 	public Produto() {
 	}
@@ -41,6 +47,26 @@ public class Produto {
 		this.descricao = descricao;
 		this.linkImagem = linkImagem;
 		this.status = StatusPedido.AGUARDANDO;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
 	}
 
 	public String getNome() {
