@@ -3,6 +3,8 @@ package br.com.alexandre.springmvcwebapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +25,12 @@ public class HomeController {
 	
 	@GetMapping
 	public String home(Model model) {
-		List<Produto> produtos = produtoRepository.findByStatus(StatusPedido.ENTREGUE);
+		
+		Sort sort = Sort.by("data").descending();
+		
+		PageRequest page = PageRequest.of(0, 5, sort);
+		
+		List<Produto> produtos = produtoRepository.findByStatus(StatusPedido.ENTREGUE, page);
 		model.addAttribute("listaProdutos", produtos);
 		return "home";
 	}

@@ -4,7 +4,8 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,15 +34,24 @@ public class UsuarioController {
 		
 		User user = userRepository.findByUsername(principal.getName());
 		
-		List<Produto> produtos = produtoRepository.findByUser(user);
+		Sort sort = Sort.by("data").descending();
+		
+		PageRequest page = PageRequest.of(0, 5, sort);
+		
+		List<Produto> produtos = produtoRepository.findByUser(user, page);
 		model.addAttribute("listaProdutos", produtos);
 		return "/usuario/pedidos";
 	}
 	
 	@GetMapping("/{status}")
 	public String findStatus(@PathVariable String status, Model model, Principal principal) {
+		
+		Sort sort = Sort.by("data").descending();
+		
+		PageRequest page = PageRequest.of(0, 5, sort);
+		
 		User user = userRepository.findByUsername(principal.getName());
-		List<Produto> produtos = produtoRepository.findByUserAndStatus(user, StatusPedido.valueOf(status.toUpperCase()));
+		List<Produto> produtos = produtoRepository.findByUserAndStatus(user, StatusPedido.valueOf(status.toUpperCase()), page);
 		model.addAttribute("listaProdutos", produtos);
 		model.addAttribute("status", status);
 		return "/usuario/pedidos";
