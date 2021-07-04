@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.alexandre.springmvcwebapp.model.enums.StatusPedido;
 
 @Entity
@@ -33,6 +35,7 @@ public class Produto {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private User user;
 
