@@ -15,9 +15,20 @@ public class User {
 	private String username;
 	private String password;
 	private Boolean enabled;
-
+	
 	@OneToMany(mappedBy = "user")
 	private List<Produto> produtos;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Oferta> ofertas;
+
+	public List<Oferta> getOfertas() {
+		return ofertas;
+	}
+
+	public void setOfertas(List<Oferta> ofertas) {
+		this.ofertas = ofertas;
+	}
 
 	public List<Produto> getProdutos() {
 		return produtos;

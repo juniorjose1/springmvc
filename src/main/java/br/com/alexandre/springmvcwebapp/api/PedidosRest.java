@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.alexandre.springmvcwebapp.model.Produto;
 import br.com.alexandre.springmvcwebapp.model.User;
+import br.com.alexandre.springmvcwebapp.model.enums.StatusPedido;
 import br.com.alexandre.springmvcwebapp.repository.ProdutoRepository;
 import br.com.alexandre.springmvcwebapp.repository.UserRepository;
 
@@ -26,7 +27,7 @@ public class PedidosRest {
 	UserRepository userRepository;
 	
 	@GetMapping
-	public List<Produto> produtos(Principal principal){
+	public List<Produto> getMeusPedidos(Principal principal){
 		
 		User user = userRepository.findByUsername(principal.getName());
 		
@@ -35,6 +36,18 @@ public class PedidosRest {
 		PageRequest page = PageRequest.of(0, 5, sort);
 		
 		List<Produto> produtos = produtoRepository.findByUser(user, page);
+		
+		return produtos;
+	}
+	
+	@GetMapping("/aguardando")
+	public List<Produto> getPedidosAguardando(Principal principal){
+		
+		Sort sort = Sort.by("data").descending();
+		
+		PageRequest page = PageRequest.of(0, 5, sort);
+		
+		List<Produto> produtos = produtoRepository.findByStatus(StatusPedido.AGUARDANDO, page);
 		
 		return produtos;
 	}

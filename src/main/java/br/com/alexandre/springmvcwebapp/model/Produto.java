@@ -2,6 +2,7 @@ package br.com.alexandre.springmvcwebapp.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,18 +33,22 @@ public class Produto {
 	private String linkProduto;
 	private String descricao;
 	private String linkImagem;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private User user;
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	private List<Oferta> ofertas;
 
 	public Produto() {
 	}
 
-	public Produto(String nome, BigDecimal valor, String linkProduto, String descricao, String linkImagem, StatusPedido status) {
+	public Produto(String nome, BigDecimal valor, String linkProduto, String descricao, String linkImagem,
+			StatusPedido status) {
 		this.nome = nome;
 		this.valor = valor;
 		this.data = LocalDate.now();
@@ -51,7 +57,15 @@ public class Produto {
 		this.linkImagem = linkImagem;
 		this.status = StatusPedido.AGUARDANDO;
 	}
-	
+
+	public List<Oferta> getOfertas() {
+		return ofertas;
+	}
+
+	public void setOfertas(List<Oferta> ofertas) {
+		this.ofertas = ofertas;
+	}
+
 	public Long getId() {
 		return id;
 	}
