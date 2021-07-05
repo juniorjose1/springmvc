@@ -38,11 +38,11 @@ public class Produto {
 	private StatusPedido status;
 	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Oferta> ofertas;
 
 	public Produto() {
