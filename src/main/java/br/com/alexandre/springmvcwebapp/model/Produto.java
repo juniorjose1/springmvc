@@ -41,6 +41,7 @@ public class Produto {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private User user;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
 	private List<Oferta> ofertas;
 

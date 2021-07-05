@@ -22,18 +22,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 			.antMatchers("/home")
-			.permitAll()
-			.anyRequest()
-			.authenticated()
+				.permitAll()
+			.anyRequest().authenticated()
 			.and()
 			.formLogin()
-			.loginPage("/login")
-			.defaultSuccessUrl("/usuario/pedidos")
-			.permitAll()
+				.loginPage("/login")
+				.defaultSuccessUrl("/usuario/pedidos")
+				.permitAll()
 			.and()
 			.logout()
-			.logoutSuccessUrl("/home")
-			.permitAll()
+				.logoutSuccessUrl("/home")
+				.permitAll()
 			.and()
 			.csrf().disable();
 		
@@ -46,14 +45,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		/*UserDetails user = 
 				User.builder()
 				.username("jose")
-				.password(encoder.encode("alexandre22"))
+				.password(encoder.encode("alexandre"))
 				.roles("ADM")
-				.build();*/
+				.build(); executar 1 vez para cadastrar no Banco*/
 		
 		auth.jdbcAuthentication()
 			.dataSource(dataSource)
 			.passwordEncoder(encoder);
-			//.withUser(user);
+			//.withUser(user); executar 1 vez para cadastrar no Banco
 		
 	}
 
